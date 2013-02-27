@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple/DTD PLIST 1.0/EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Disabled</key>
+	<false/>
+	<key>Label</key>
+	<string>org.takashiyoshida.DownloadPodcastsAgent</string>
+	<key>Program</key>
+	<string>/usr/bin/osascript</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>osascript</string>
+		<string>/Users/takashi/Library/Scripts/Download Podcasts.scpt</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>288000</integer>
+</dict>
+</plist>
