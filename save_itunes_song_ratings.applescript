@@ -4,7 +4,7 @@ property musicList : "Music"
 property rootSource : "Library"
 
 property dropboxPath : "Dropbox:"
-property ratingsFile : "iTunes Song Ratings_test.txt"
+property ratingsFile : "iTunes Song Ratings.txt"
 
 -- main script -- 
 
