@@ -17,3 +17,8 @@ Compile "${USER_SCRIPT}/Sync with iOS Devices.scpt" "sync_with_ios_devices.apple
 Compile "${USER_SCRIPT}/Download Podcasts.scpt" "download_podcasts.applescript"
 
 Compile "${USER_SCRIPT}/Switch to Quiet Mode.scpt" "switch_to_quiet_mode.applescript"
+
+Compile "${USER_SCRIPT}/Load Song Ratings.scpt" "load_itunes_song_ratings.applescript"
+Compile "${USER_SCRIPT}/Save Song Ratings.scpt" "save_itunes_song_ratings.applescript"
+
+Compile "${USER_SCRIPT}/Open in Google Chrome.scpt" "open_in_google_chrome.applescript"
