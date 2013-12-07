@@ -22,3 +22,4 @@ Compile "${USER_SCRIPT}/Load Song Ratings.scpt" "load_itunes_song_ratings.apples
 Compile "${USER_SCRIPT}/Save Song Ratings.scpt" "save_itunes_song_ratings.applescript"
 
 Compile "${USER_SCRIPT}/Open in Google Chrome.scpt" "open_in_google_chrome.applescript"
+Compile "${USER_SCRIPT}/Eject iOS Devices.scpt" "eject_ios_devices.applescript"
