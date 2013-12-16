@@ -1,7 +1,5 @@
-#!/usr/bin/env ruby
-
 $library_dir = File.join(Dir.home, "Library")
-$scripts_dir = File.join($library_dir, "Foo")
+$scripts_dir = File.join($library_dir, "Scripts")
 $applications_dir = File.join($scripts_dir, "Applications")
 $dir_mask = 0700
 
