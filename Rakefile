@@ -3,6 +3,8 @@ $scripts_dir = File.join($library_dir, "Scripts")
 $applications_dir = File.join($scripts_dir, "Applications")
 $dir_mask = 0700
 
+task :default => [:install]
+
 task :make_scripts_dir do
   unless File.directory? $scripts_dir
     Dir.mkdir($scripts_dir, $dir_mask)
@@ -46,6 +48,7 @@ task :compile, :src, :out do |t, args|
   system("osacompile -o \"#{out}\" \"#{src}\"")
 end
 
+desc "Installs all scripts"
 task :install do
   Rake::Task["download_podcasts"].invoke
   Rake::Task["switch_to_quiet_mode"].invoke
