@@ -1,3 +1,6 @@
+-- property --
+property closesTab : true
+
 set tabUrl to ""
 
 tell application "Safari"
@@ -6,6 +9,11 @@ tell application "Safari"
 		try
 			set tabName to name of current tab of w
 			set tabUrl to URL of current tab of w
+			
+			if closesTab then
+				close current tab of w
+			end if
+			
 			exit repeat
 		on error x number y
 			-- in this case, ignore this window
