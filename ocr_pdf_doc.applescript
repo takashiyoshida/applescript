@@ -4,16 +4,14 @@ set foobar to alias "Cortana:Users:takashi:Downloads:Evernote:20110706215155042 
 tell application "PDFpen"
 	set pdfDoc to open foobar
 	
-	-- I don't know if I need timeout... some larger PDF may need extra time
-	-- to read and OCR	
-	with timeout of 120 seconds
-		tell pdfDoc to ocr
-	end timeout
-	
-	delay 20
-	-- I intend to have only one document open (for now)
-	save item 1 of documents
-	
-	delay 3
-	close item 1 of documents
+	-- INFO: Found a more "correct" way to perform OCR from AppleScript
+	-- http://katiefloyd.me/blog/automatically-ocr-documents-with-hazel-and-pdfpen
+	tell pdfDoc
+		ocr
+		repeat while performing ocr
+			delay 1
+		end repeat
+		
+		close with saving
+	end tell
 end tell
