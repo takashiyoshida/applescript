@@ -1,7 +1,5 @@
 tell application "iTunes"
-	repeat with s in sources
-		if (name of s is not "Library") and (name of s is not "Internet Radio") then
-			update s
-		end if
+	repeat with device in (every source whose kind is iPod)
+		update device
 	end repeat
 end tell
