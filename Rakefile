@@ -52,6 +52,7 @@ desc "Installs all scripts"
 task :install do
   Rake::Task["download_podcasts"].invoke
   Rake::Task["switch_to_quiet_mode"].invoke
+  Rake::Task["switch_to_normal_mode"].invoke
   Rake::Task["sync_with_ios_devices"].invoke
   Rake::Task["eject_ios_devices"].invoke
   Rake::Task["load_song_ratings"].invoke
@@ -75,6 +76,14 @@ task :switch_to_quiet_mode => :make_application_dirs do
   FileUtils.mv(out, $scripts_dir)
 end
 
+desc "Installs 'Switch to Normal Mode' script"
+task :switch_to_normal_mode => :make_application_dirs do
+    src = "switch_to_normal_mode.applescript"
+    out = "Switch to Normal Mode.scpt"
+    Rake::Task["compile"].execute(:src => src, :out => out)
+    FileUtils.mv(out, $scripts_dir)
+end
+
 desc "Installs 'Sync with iOS Devices' script"
 task :sync_with_ios_devices => :make_application_dirs do
   src = "sync_with_ios_devices.applescript"
@@ -93,7 +102,7 @@ task :eject_ios_devices => :make_application_dirs do
 
   destination = File.join($scripts_dir, "iOS Devices")
   FileUtils.mv(out, destination)
-end  
+end
 
 desc "Installs 'Load Song Ratings' script"
 task :load_song_ratings => :make_application_dirs do
