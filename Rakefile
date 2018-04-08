@@ -58,6 +58,7 @@ task :install do
   Rake::Task["load_song_ratings"].invoke
   Rake::Task["save_song_ratings"].invoke
   Rake::Task["open_in_google_chrome"].invoke
+  Rake::Task["save-safari-window-pos"].invoke
 end
 
 desc "Installs 'Download Podcasts' script"
@@ -129,6 +130,16 @@ task :open_in_google_chrome => :make_application_dirs do
   src = "open_in_google_chrome.applescript"
   out = "Open in Google Chrome.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Safari")
+  FileUtils.mv(out, destination)
+end
+
+desc "Installs 'Save Safari Window Positions' script"
+task :save_safari_window_positions => :make_application_dirs do
+  src = "save-safari-window-pos.applescript"
+  out = "Save Safari Window Positions.scpt"
+  Rake::Task["compile"].execute(:src => src, :out =>out)
 
   destination = File.join($applications_dir, "Safari")
   FileUtils.mv(out, destination)

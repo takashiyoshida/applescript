@@ -28,14 +28,16 @@ else
 		tell process "Safari"
 			-- count of windows reflect the number of windows in the current desktop
 			-- if your current virtual desktop has no Safari windows, it will be zero
-			set numOfSafariWindows to count of windows
-			set posOfSafariWindows to {}
-			set sizeOfSafariWindows to {}
-			
-			repeat with i from 1 to numOfSafariWindows
-				set end of posOfSafariWindows to (position of window i)
-				set end of sizeOfSafariWindows to (size of window i)
-			end repeat
+			if (count of windows) > 0 then
+				set numOfSafariWindows to count of windows
+				set posOfSafariWindows to {}
+				set sizeOfSafariWindows to {}
+				
+				repeat with i from 1 to numOfSafariWindows
+					set end of posOfSafariWindows to (position of window i)
+					set end of sizeOfSafariWindows to (size of window i)
+				end repeat
+			end if
 			log {"numOfSafariWindows: " & numOfSafariWindows}
 		end tell
 	end tell
