@@ -2,8 +2,12 @@ property numOfSafariWindows : 0
 property posOfSafariWindows : {}
 property sizeOfSafariWindows : {}
 
-set theResults to display dialog "Restore window positions or save window positions?" buttons {"Restore", "Save"} default button "Restore"
+set theResults to display dialog "Restore window positions or save window positions?" buttons {"Restore", "Save"} default button "Restore" giving up after 5
 log theResults
+
+if (gave up of theResults) is true then
+	set the button returned of theResults to "Restore"
+end if
 
 if (button returned of theResults) is "Restore" then
 	tell application "Safari"
