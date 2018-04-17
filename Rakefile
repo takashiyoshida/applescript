@@ -59,6 +59,7 @@ task :install do
   Rake::Task["save_song_ratings"].invoke
   Rake::Task["open_in_google_chrome"].invoke
   Rake::Task["save_safari_window_positions"].invoke
+  Rake::Task["create_weekly_ppp_email"].invoke
 end
 
 desc "Installs 'Download Podcasts' script"
@@ -140,6 +141,16 @@ task :save_safari_window_positions => :make_application_dirs do
   src = "save-safari-window-pos.applescript"
   out = "Save Safari Window Positions.scpt"
   Rake::Task["compile"].execute(:src => src, :out =>out)
+
+  destination = File.join($applications_dir, "Safari")
+  FileUtils.mv(out, destination)
+end
+
+desc "Installs 'Create Weekly PPP email' script"
+task :create_weekly_ppp_email => :make_application_dirs do
+  src = "create_weekly_ppp.applescript"
+  out = "Create Weekly PPP Email.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
 
   destination = File.join($applications_dir, "Safari")
   FileUtils.mv(out, destination)
