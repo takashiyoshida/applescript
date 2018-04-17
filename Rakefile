@@ -58,7 +58,7 @@ task :install do
   Rake::Task["load_song_ratings"].invoke
   Rake::Task["save_song_ratings"].invoke
   Rake::Task["open_in_google_chrome"].invoke
-  Rake::Task["save-safari-window-pos"].invoke
+  Rake::Task["save_safari_window_positions"].invoke
 end
 
 desc "Installs 'Download Podcasts' script"
