@@ -60,6 +60,7 @@ task :install do
   Rake::Task["open_in_google_chrome"].invoke
   Rake::Task["save_safari_window_positions"].invoke
   Rake::Task["create_weekly_ppp_email"].invoke
+  Rake::Task["open_home_folders"].invoke
 end
 
 desc "Installs 'Download Podcasts' script"
@@ -154,4 +155,12 @@ task :create_weekly_ppp_email => :make_application_dirs do
 
   destination = File.join($applications_dir, "Safari")
   FileUtils.mv(out, destination)
+end
+
+desc "Installs 'Open Home Folders' script"
+task :open_home_folders => :make_application_dirs do
+  src = "open_home_folders.applescript"
+  out = "Open Home Folders.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
 end
