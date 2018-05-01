@@ -190,3 +190,13 @@ task :ocr_pdf_documents => :make_application_dirs do
   destination = File.join($scripts_dir, "Folder Action Scripts")
   FileUtils.mv(out, destination)
 end
+
+desc "Installs 'Make Web Archive'"
+task :make_web_archive => :make_application_dirs do
+  src = "make_web_archive_in_yojimbo.applescript"
+  out = "Make Web Archive in Yojimbo.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Safari")
+  FileUtils.mv(out, destination)  
+end
