@@ -1,6 +1,7 @@
 $library_dir = File.join(Dir.home, "Library")
 $scripts_dir = File.join($library_dir, "Scripts")
 $applications_dir = File.join($scripts_dir, "Applications")
+#$folder_action_dir = File.join($scripts_dir, "Folder Action Scripts")
 $dir_mask = 0700
 
 task :default => [:install]
@@ -38,6 +39,7 @@ task :make_application_dirs do
 
   dir_names = Array.new
   dir_names.push("iOS Devices")
+  dir_names.push("Folder Action Scripts")
   Rake::Task["make_subdirectory"].reenable
   Rake::Task["make_subdirectory"].invoke($scripts_dir, dir_names)
 end
@@ -176,5 +178,15 @@ task :close_all_finder_windows => :make_application_dirs do
   Rake::Task["compile"].execute(:src => src, :out => out)
 
   destination = File.join($applications_dir, "Finder")
+  FileUtils.mv(out, destination)
+end
+
+desc "Installs 'OCR PDF Documents'"
+task :ocr_pdf_documents => :make_application_dirs do
+  src = "ocr_pdf_documents_folder_action.applescript"
+  out = "OCR PDF Documents.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($scripts_dir, "Folder Action Scripts")
   FileUtils.mv(out, destination)
 end
