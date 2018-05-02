@@ -11,7 +11,7 @@ tell application "Finder"
 			tell process "Finder"
 				set frontmost to true
 				keystroke "t" using command down
-				delay 0.2
+				delay 0.5
 			end tell
 		end tell
 	end repeat

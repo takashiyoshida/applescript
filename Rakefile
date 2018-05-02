@@ -1,6 +1,7 @@
 $library_dir = File.join(Dir.home, "Library")
 $scripts_dir = File.join($library_dir, "Scripts")
 $applications_dir = File.join($scripts_dir, "Applications")
+#$folder_action_dir = File.join($scripts_dir, "Folder Action Scripts")
 $dir_mask = 0700
 
 task :default => [:install]
@@ -33,10 +34,12 @@ task :make_application_dirs do
   dir_names = Array.new
   dir_names.push("iTunes")
   dir_names.push("Safari")
+  dir_names.push("Finder")
   Rake::Task["make_subdirectory"].invoke($applications_dir, dir_names)
 
   dir_names = Array.new
   dir_names.push("iOS Devices")
+  dir_names.push("Folder Action Scripts")
   Rake::Task["make_subdirectory"].reenable
   Rake::Task["make_subdirectory"].invoke($scripts_dir, dir_names)
 end
@@ -61,6 +64,7 @@ task :install do
   Rake::Task["save_safari_window_positions"].invoke
   Rake::Task["create_weekly_ppp_email"].invoke
   Rake::Task["open_home_folders"].invoke
+  Rake::Task["close_all_finder_windows"].invoke
 end
 
 desc "Installs 'Download Podcasts' script"
@@ -162,5 +166,37 @@ task :open_home_folders => :make_application_dirs do
   src = "open_home_folders.applescript"
   out = "Open Home Folders.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
-  FileUtils.mv(out, $scripts_dir)
+
+  destination = File.join($applications_dir, "Finder")
+  FileUtils.mv(out, destination)
+end
+
+desc "Installs 'Close All Finder Windows' script"
+task :close_all_finder_windows => :make_application_dirs do
+  src = "close_all_finder_windows.applescript"
+  out = "Close All Finder Windows.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Finder")
+  FileUtils.mv(out, destination)
+end
+
+desc "Installs 'OCR PDF Documents'"
+task :ocr_pdf_documents => :make_application_dirs do
+  src = "ocr_pdf_documents_folder_action.applescript"
+  out = "OCR PDF Documents.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($scripts_dir, "Folder Action Scripts")
+  FileUtils.mv(out, destination)
+end
+
+desc "Installs 'Make Web Archive'"
+task :make_web_archive => :make_application_dirs do
+  src = "make_web_archive_in_yojimbo.applescript"
+  out = "Make Web Archive in Yojimbo.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Safari")
+  FileUtils.mv(out, destination)  
 end
