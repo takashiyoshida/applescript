@@ -1,7 +1,6 @@
 $library_dir = File.join(Dir.home, "Library")
 $scripts_dir = File.join($library_dir, "Scripts")
 $applications_dir = File.join($scripts_dir, "Applications")
-#$folder_action_dir = File.join($scripts_dir, "Folder Action Scripts")
 $dir_mask = 0700
 
 task :default => [:install]
@@ -191,7 +190,7 @@ task :ocr_pdf_documents => :make_application_dirs do
   FileUtils.mv(out, destination)
 end
 
-desc "Installs 'Make Web Archive'"
+desc "Installs 'Make Web Archive' script"
 task :make_web_archive => :make_application_dirs do
   src = "make_web_archive_in_yojimbo.applescript"
   out = "Make Web Archive in Yojimbo.scpt"
@@ -199,4 +198,14 @@ task :make_web_archive => :make_application_dirs do
 
   destination = File.join($applications_dir, "Safari")
   FileUtils.mv(out, destination)  
+end
+
+desc "Installs 'Drop Items to Yojimbo' script"
+task :drop_items_to_yojimbo => :make_application_dirs do
+  src = "drop_items_to_yojimbo_folder_action.applescript"
+  out = "Drop Items to Yojimbo.scpt"
+  Rake::Task["compile"].execute(:src => src, :out =>out)
+
+  destination = File.join($scripts_dir, "Folder Action Scripts")
+  FileUtils.mv(out, destination)
 end
