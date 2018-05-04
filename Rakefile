@@ -34,6 +34,7 @@ task :make_application_dirs do
   dir_names.push("iTunes")
   dir_names.push("Safari")
   dir_names.push("Finder")
+  dir_names.push("Airmail 3")
   Rake::Task["make_subdirectory"].invoke($applications_dir, dir_names)
 
   dir_names = Array.new
@@ -156,7 +157,7 @@ task :create_weekly_ppp_email => :make_application_dirs do
   out = "Create Weekly PPP Email.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
 
-  destination = File.join($applications_dir, "Safari")
+  destination = File.join($applications_dir, "Airmail 3")
   FileUtils.mv(out, destination)
 end
 
