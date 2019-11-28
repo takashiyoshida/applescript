@@ -31,14 +31,11 @@ end
 desc "Make directories for scripts"
 task :make_application_dirs do
   dir_names = Array.new
-  dir_names.push("iTunes")
   dir_names.push("Safari")
   dir_names.push("Finder")
-  dir_names.push("Airmail 3")
   Rake::Task["make_subdirectory"].invoke($applications_dir, dir_names)
 
   dir_names = Array.new
-  dir_names.push("iOS Devices")
   dir_names.push("Folder Action Scripts")
   Rake::Task["make_subdirectory"].reenable
   Rake::Task["make_subdirectory"].invoke($scripts_dir, dir_names)
@@ -53,26 +50,12 @@ end
 
 desc "Installs all scripts"
 task :install do
-  Rake::Task["download_podcasts"].invoke
   Rake::Task["switch_to_quiet_mode"].invoke
   Rake::Task["switch_to_normal_mode"].invoke
-  Rake::Task["sync_with_ios_devices"].invoke
-  Rake::Task["eject_ios_devices"].invoke
-  Rake::Task["load_song_ratings"].invoke
-  Rake::Task["save_song_ratings"].invoke
-  Rake::Task["open_in_google_chrome"].invoke
   Rake::Task["save_safari_window_positions"].invoke
   Rake::Task["create_weekly_ppp_email"].invoke
   Rake::Task["open_home_folders"].invoke
   Rake::Task["close_all_finder_windows"].invoke
-end
-
-desc "Installs 'Download Podcasts' script"
-task :download_podcasts => :make_application_dirs do
-  src = "download_podcasts.applescript"
-  out = "Download Podcasts.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-  FileUtils.mv(out, $scripts_dir)
 end
 
 desc "Installs 'Switch to Quiet Mode' script"
@@ -89,46 +72,6 @@ task :switch_to_normal_mode => :make_application_dirs do
     out = "Switch to Normal Mode.scpt"
     Rake::Task["compile"].execute(:src => src, :out => out)
     FileUtils.mv(out, $scripts_dir)
-end
-
-desc "Installs 'Sync with iOS Devices' script"
-task :sync_with_ios_devices => :make_application_dirs do
-  src = "sync_with_ios_devices.applescript"
-  out = "Sync with iOS Devices.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($scripts_dir, "iOS Devices")
-  FileUtils.mv(out, destination)
-end
-
-desc "Installs 'Eject iOS Devices' script"
-task :eject_ios_devices => :make_application_dirs do
-  src = "eject_ios_devices.applescript"
-  out = "Eject iOS Devices.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($scripts_dir, "iOS Devices")
-  FileUtils.mv(out, destination)
-end
-
-desc "Installs 'Load Song Ratings' script"
-task :load_song_ratings => :make_application_dirs do
-  src = "load_itunes_song_ratings.applescript"
-  out = "Load iTunes Song Ratings.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($applications_dir, "iTunes")
-  FileUtils.mv(out, destination)
-end
-
-desc "Installs 'Save Song Ratings' script"
-task :save_song_ratings => :make_application_dirs do
-  src = "save_itunes_song_ratings.applescript"
-  out = "Save iTunes Song Ratings.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($applications_dir, "iTunes")
-  FileUtils.mv(out, destination)
 end
 
 desc "Installs 'Open in Google Chrome' script"
