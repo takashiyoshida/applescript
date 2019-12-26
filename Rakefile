@@ -53,7 +53,6 @@ task :install do
   Rake::Task["switch_to_quiet_mode"].invoke
   Rake::Task["switch_to_normal_mode"].invoke
   Rake::Task["save_safari_window_positions"].invoke
-  Rake::Task["create_weekly_ppp_email"].invoke
   Rake::Task["open_home_folders"].invoke
   Rake::Task["close_all_finder_windows"].invoke
 end
@@ -141,7 +140,7 @@ task :make_web_archive => :make_application_dirs do
   Rake::Task["compile"].execute(:src => src, :out => out)
 
   destination = File.join($applications_dir, "Safari")
-  FileUtils.mv(out, destination)  
+  FileUtils.mv(out, destination)
 end
 
 desc "Installs 'Drop Items to Yojimbo' script"
