@@ -147,8 +147,18 @@ desc "Installs 'Drop Items to Yojimbo' script"
 task :drop_items_to_yojimbo => :make_application_dirs do
   src = "drop_items_to_yojimbo_folder_action.applescript"
   out = "Drop Items to Yojimbo.scpt"
-  Rake::Task["compile"].execute(:src => src, :out =>out)
+  Rake::Task["compile"].execute(:src => src, :out => out)
 
   destination = File.join($scripts_dir, "Folder Action Scripts")
+  FileUtils.mv(out, destination)
+end
+
+desc "Installs 'Make Comic Book Archive' script"
+task :make_comic_book_archive => :make_application_dirs do
+  src = "make_comic_book_archive.applescript"
+  out = "Make Comic Book Archive.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Finder")
   FileUtils.mv(out, destination)
 end
