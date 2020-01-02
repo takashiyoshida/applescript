@@ -162,3 +162,11 @@ task :make_comic_book_archive => :make_application_dirs do
   destination = File.join($applications_dir, "Finder")
   FileUtils.mv(out, destination)
 end
+
+desc "Installs 'Spark - Search Mailbox' script"
+task :spark_search_mailbox => :make_application_dirs do
+  src = "spark_search_mailbox.applescript"
+  out = "Spark - Search Mailbox.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
+end
