@@ -9,10 +9,9 @@ task :make_scripts_dir do
   unless File.directory? $scripts_dir
     Dir.mkdir($scripts_dir, $dir_mask)
     system("chmod +a \"everyone deny delete\" #{$scripts_dir}")
-
-    unless File.directory? $applications_dir
-      Dir.mkdir($applications_dir, $dir_mask)
-    end
+  end
+  unless File.directory? $applications_dir
+    Dir.mkdir($applications_dir, $dir_mask)
   end
 end
 
@@ -28,11 +27,15 @@ task :make_subdirectory, [:dest_dir, :dir_names] => [:make_scripts_dir] do | t, 
   end
 end
 
-desc "Make directories for scripts"
+desc "Make application folders for scripts"
 task :make_application_dirs do
   dir_names = Array.new
-  dir_names.push("Safari")
+  dir_names.push("Carbon Copy Cloner")
   dir_names.push("Finder")
+  dir_names.push("Photos")
+  dir_names.push("Safari")
+  # dir_names.push("SuperDuper")
+  dir_names.push("Yojimbo")
   Rake::Task["make_subdirectory"].invoke($applications_dir, dir_names)
 
   dir_names = Array.new
@@ -50,110 +53,97 @@ end
 
 desc "Installs all scripts"
 task :install do
-  Rake::Task["switch_to_quiet_mode"].invoke
-  Rake::Task["switch_to_normal_mode"].invoke
-  Rake::Task["save_safari_window_positions"].invoke
-  Rake::Task["open_home_folders"].invoke
+  Rake::Task["backup_audio_recordings"].invoke
+  # Rake::Task["backup_boot_drive"].invoke
   Rake::Task["close_all_finder_windows"].invoke
+  Rake::Task["drop_items_to_yojimbo_folder_action"].invoke
+  Rake::Task["eject_all_disks"].invoke
+  Rake::Task["export_images_to_yojimbo"].invoke
+  Rake::Task["export_images"].invoke
+  Rake::Task["make_comic_book_archive"].invoke
+  Rake::Task["make_web_archive_in_yojimbo"].invoke
+  Rake::Task["ocr_pdf_documents_folder_action"].invoke
+  Rake::Task["ocr_pdf_documents_hazel"].invoke
+  Rake::Task["open_activity_monitor"].invoke
+  Rake::Task["open_home_folders"].invoke
+  Rake::Task["open_in_google_chrome"].invoke
+  Rake::Task["save_safari_window_positions"].invoke
+  Rake::Task["search_spark_mailbox"].invoke
+  Rake::Task["set_garageband_project_name"].invoke
+  Rake::Task["show_screen_resolution"].invoke
+  Rake::Task["switch_to_normal_mode"].invoke
+  Rake::Task["switch_to_quiet_mode"].invoke
 end
 
-desc "Installs 'Switch to Quiet Mode' script"
-task :switch_to_quiet_mode => :make_application_dirs do
-  src = "switch_to_quiet_mode.applescript"
-  out = "Switch to Quiet Mode.scpt"
+# com.bombich.ccc6.task.open://A241E37B-B1BE-4261-B814-38EEADAF036A
+desc "Backup Audio Recordings"
+task :backup_audio_recordings => :make_application_dirs do
+  src = "backup_audio_recordings.applescript"
+  out = "Backup Audio Recordings.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
-  FileUtils.mv(out, $scripts_dir)
-end
 
-desc "Installs 'Switch to Normal Mode' script"
-task :switch_to_normal_mode => :make_application_dirs do
-    src = "switch_to_normal_mode.applescript"
-    out = "Switch to Normal Mode.scpt"
-    Rake::Task["compile"].execute(:src => src, :out => out)
-    FileUtils.mv(out, $scripts_dir)
-end
-
-desc "Installs 'Open in Google Chrome' script"
-task :open_in_google_chrome => :make_application_dirs do
-  src = "open_in_google_chrome.applescript"
-  out = "Open in Google Chrome.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($applications_dir, "Safari")
+  destination = File.join($applications_dir, "Carbon Copy Cloner")
   FileUtils.mv(out, destination)
 end
 
-desc "Installs 'Save Safari Window Positions' script"
-task :save_safari_window_positions => :make_application_dirs do
-  src = "save-safari-window-pos.applescript"
-  out = "Save Safari Window Positions.scpt"
-  Rake::Task["compile"].execute(:src => src, :out =>out)
-
-  destination = File.join($applications_dir, "Safari")
-  FileUtils.mv(out, destination)
-end
-
-desc "Installs 'Create Weekly PPP email' script"
-task :create_weekly_ppp_email => :make_application_dirs do
-  src = "create_weekly_ppp.applescript"
-  out = "Create Weekly PPP Email.scpt"
+desc "Backup Boot Drive"
+task :backup_boot_drive => :make_application_dirs do
+  src = "backup_boot_drive.applescript"
+  out = "Backup Boot Drive.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
 
-  destination = File.join($applications_dir, "Airmail 3")
+  destination = File.join($applications_dir, "SuperDuper")
   FileUtils.mv(out, destination)
 end
 
-desc "Installs 'Open Home Folders' script"
-task :open_home_folders => :make_application_dirs do
-  src = "open_home_folders.applescript"
-  out = "Open Home Folders.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($applications_dir, "Finder")
-  FileUtils.mv(out, destination)
-end
-
-desc "Installs 'Close All Finder Windows' script"
+desc "Close All Finder Windows"
 task :close_all_finder_windows => :make_application_dirs do
   src = "close_all_finder_windows.applescript"
   out = "Close All Finder Windows.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($applications_dir, "Finder")
-  FileUtils.mv(out, destination)
+  # This script can be called from any application
+  FileUtils.mv(out, $scripts_dir)
 end
 
-desc "Installs 'OCR PDF Documents'"
-task :ocr_pdf_documents => :make_application_dirs do
-  src = "ocr_pdf_documents_folder_action.applescript"
-  out = "OCR PDF Documents.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($scripts_dir, "Folder Action Scripts")
-  FileUtils.mv(out, destination)
-end
-
-desc "Installs 'Make Web Archive' script"
-task :make_web_archive => :make_application_dirs do
-  src = "make_web_archive_in_yojimbo.applescript"
-  out = "Make Web Archive in Yojimbo.scpt"
-  Rake::Task["compile"].execute(:src => src, :out => out)
-
-  destination = File.join($applications_dir, "Safari")
-  FileUtils.mv(out, destination)
-end
-
-desc "Installs 'Drop Items to Yojimbo' script"
-task :drop_items_to_yojimbo => :make_application_dirs do
+desc "Drop Items to Yojimbo Folder Action"
+task :drop_items_to_yojimbo_folder_action => :make_application_dirs do
   src = "drop_items_to_yojimbo_folder_action.applescript"
-  out = "Drop Items to Yojimbo.scpt"
+  out = "Drop Items to Yojimbo Folder Action.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
 
   destination = File.join($scripts_dir, "Folder Action Scripts")
   FileUtils.mv(out, destination)
 end
 
-desc "Installs 'Make Comic Book Archive' script"
+desc "Eject All Disks"
+task :eject_all_disks => :make_application_dirs do
+  src = "eject_all_disks.applescript"
+  out = "Eject All Disks.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
+end
+
+desc "Export Images to Yojimbo"
+task :export_images_to_yojimbo => :make_application_dirs do
+  src = "export_images_to_yojimbo.applescript"
+  out = "Export Images to Yojimbo.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Photos")
+  FileUtils.mv(out, destination)
+end
+
+desc "Export Images"
+task :export_images => :make_application_dirs do
+  src = "export_images.applescript"
+  out = "Export Images.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Photos")
+  FileUtils.mv(out, destination)
+end
+
+desc "Make Comic Book Archive"
 task :make_comic_book_archive => :make_application_dirs do
   src = "make_comic_book_archive.applescript"
   out = "Make Comic Book Archive.scpt"
@@ -163,10 +153,119 @@ task :make_comic_book_archive => :make_application_dirs do
   FileUtils.mv(out, destination)
 end
 
-desc "Installs 'Spark - Search Mailbox' script"
-task :spark_search_mailbox => :make_application_dirs do
-  src = "spark_search_mailbox.applescript"
-  out = "Spark - Search Mailbox.scpt"
+desc "Make Web Archive in Yojimbo"
+task :make_web_archive_in_yojimbo => :make_application_dirs do
+  src = "make_web_archive_in_yojimbo.applescript"
+  out = "Make Web Archive in Yojimbo.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Safari")
+  FileUtils.mv(out, destination)
+end
+
+desc "Open Activity Monitor"
+task :open_activity_monitor => :make_application_dirs do
+  src = "open_activity_monitor.applescript"
+  out = "Open Activity Monitor.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
+end
+
+desc "OCR PDF Documents Folder Action"
+task :ocr_pdf_documents_folder_action => :make_application_dirs do
+  src = "ocr_pdf_documents_folder_action.applescript"
+  out = "OCR PDF Documents Folder Action.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($scripts_dir, "Folder Action Scripts")
+  FileUtils.mv(out, destination)
+end
+
+desc "OCR PDF Documents Hazel"
+task :ocr_pdf_documents_hazel => :make_application_dirs do
+  src = "ocr_pdf_documents_hazel.applescript"
+  out = "OCR PDF Documents Hazel.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($scripts_dir, "Folder Action Scripts")
+  FileUtils.mv(out, destination)
+end
+
+desc "Open Activity Monitor - Energy"
+task :open_activity_monitor => :make_application_dirs do
+  src = "open_activity_monitor.applescript"
+  out = "Open Activity Monitor.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
+end
+
+desc "Open Home Folders"
+task :open_home_folders => :make_application_dirs do
+  src = "open_home_folders.applescript"
+  out = "Open Home Folders.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
+end
+
+desc "Open in Google Chrome"
+task :open_in_google_chrome => :make_application_dirs do
+  src = "open_in_google_chrome.applescript"
+  out = "Open in Google Chrome.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  destination = File.join($applications_dir, "Safari")
+  FileUtils.mv(out, destination)
+end
+
+desc "Save Safari Window Positions"
+task :save_safari_window_positions => :make_application_dirs do
+  src = "save_safari_window_pos.applescript"
+  out = "Save Safari Window Positions.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Safari")
+  FileUtils.mv(out, destination)
+end
+
+desc "Search Spark Mailbox"
+task :search_spark_mailbox => :make_application_dirs do
+  src = "search_spark_mailbox.applescript"
+  out = "Search Spark Mailbox.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Spark")
+  FileUtils.mv(out, destination)
+end
+
+desc "Set GarageBand Project Name"
+task :set_garageband_project_name => :make_application_dirs do
+  src = "set_garageband_project_name.applescript"
+  out = "Set GarageBand Project Name.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "GarageBand")
+  FileUtils.mv(out, destination)
+end
+
+desc "Show Screen Resolution"
+task :show_screen_resolution => :make_application_dirs do
+  src = "show_screen_resolution.applescript"
+  out = "Show Screen Resolution.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
+end
+
+desc "Switch to Normal Mode"
+task :switch_to_normal_mode => :make_application_dirs do
+  src = "switch_to_normal_mode.applescript"
+  out = "Switch to Normal Mode.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+  FileUtils.mv(out, $scripts_dir)
+end
+
+desc "Switch to Quiet Mode"
+task :switch_to_quiet_mode => :make_application_dirs do
+  src = "switch_to_quiet_mode.applescript"
+  out = "Switch to Quiet Mode.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
   FileUtils.mv(out, $scripts_dir)
 end
