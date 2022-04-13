@@ -32,8 +32,10 @@ task :make_application_dirs do
   dir_names = Array.new
   dir_names.push("Carbon Copy Cloner")
   dir_names.push("Finder")
+  dir_names.push("GarageBand")
   dir_names.push("Photos")
   dir_names.push("Safari")
+  dir_names.push("Spark")
   # dir_names.push("SuperDuper")
   dir_names.push("Yojimbo")
   Rake::Task["make_subdirectory"].invoke($applications_dir, dir_names)
@@ -60,6 +62,7 @@ task :install do
   Rake::Task["eject_all_disks"].invoke
   Rake::Task["export_images_to_yojimbo"].invoke
   Rake::Task["export_images"].invoke
+  Rake::Task["km_count_finder_items"].invoke
   Rake::Task["make_comic_book_archive"].invoke
   Rake::Task["make_web_archive_in_yojimbo"].invoke
   Rake::Task["ocr_pdf_documents_folder_action"].invoke
@@ -140,6 +143,16 @@ task :export_images => :make_application_dirs do
   Rake::Task["compile"].execute(:src => src, :out => out)
 
   destination = File.join($applications_dir, "Photos")
+  FileUtils.mv(out, destination)
+end
+
+desc "KM Count Finder Items"
+task :km_count_finder_items => :make_application_dirs do
+  src = "km_count_finder_items.applescript"
+  out = "KM Count Finder Items.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "Finder")
   FileUtils.mv(out, destination)
 end
 
