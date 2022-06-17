@@ -33,6 +33,7 @@ task :make_application_dirs do
   dir_names.push("Carbon Copy Cloner")
   dir_names.push("Finder")
   dir_names.push("GarageBand")
+  dir_names.push("OmniFocus")
   dir_names.push("Photos")
   dir_names.push("Safari")
   dir_names.push("Spark")
@@ -281,4 +282,64 @@ task :switch_to_quiet_mode => :make_application_dirs do
   out = "Switch to Quiet Mode.scpt"
   Rake::Task["compile"].execute(:src => src, :out => out)
   FileUtils.mv(out, $scripts_dir)
+end
+
+desc "OmniFocus - Open Inbox perspective"
+task :omnifocus_open_inbox => :make_application_dirs do
+  src = "omnifocus_open_inbox.applescript"
+  out = "OmniFocus - Open Inbox.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "OmniFocus")
+  FileUtils.mv(out, destination)
+end
+
+desc "OmniFocus - Open Forecast perspective"
+task :omnifocus_open_forecast => :make_application_dirs do
+  src = "omnifocus_open_forecast.applescript"
+  out = "OmniFocus - Open Forecast.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "OmniFocus")
+  FileUtils.mv(out, destination)
+end
+
+desc "OmniFocus - Open Projects perspective"
+task :omnifocus_open_projects => :make_application_dirs do
+  src = "omnifocus_open_projects.applescript"
+  out = "OmniFocus - Open Projects.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "OmniFocus")
+  FileUtils.mv(out, destination)
+end
+
+desc "OmniFocus - Open Flagged perspective"
+task :omnifocus_open_flagged => :make_application_dirs do
+  src = "omnifocus_open_flagged.applescript"
+  out = "OmniFocus - Open Flagged.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "OmniFocus")
+  FileUtils.mv(out, destination)
+end
+
+desc "OmniFocus - Open Review perspective"
+task :omnifocus_open_review => :make_application_dirs do
+  src = "omnifocus_open_review.applescript"
+  out = "OmniFocus - Open Review.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "OmniFocus")
+  FileUtils.mv(out, destination)
+end
+
+desc "OmniFocus - Open Tags perspective"
+task :omnifocus_open_tags => :make_application_dirs do
+  src = "omnifocus_open_tags.applescript"
+  out = "OmniFocus - Open Tags.scpt"
+  Rake::Task["compile"].execute(:src => src, :out => out)
+
+  destination = File.join($applications_dir, "OmniFocus")
+  FileUtils.mv(out, destination)
 end
