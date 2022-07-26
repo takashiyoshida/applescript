@@ -3,7 +3,9 @@ applescript
 
 My collection of AppleScript
 
-## BetterTouchTool
+## Activity Monitor
+
+Open Activity Monitor and click on Energy tab
 
 - open_activity_monitor.applescript
 
@@ -28,6 +30,18 @@ Eject All Disks
 Create a Comic Book Archive (.cbz) from a folder of images
 
 - make_comic_book_archive.applescript
+
+Open Home folder and other folder in the same Finder window
+
+- open_home_folders.applescript
+
+> This doesn't actually work. I think the delay probably needs to be longer.
+
+## Google Chrome
+
+Open the current Safari window/tab in Google Chrome instead
+
+- open_in_google_chrome.applescript
 
 ## Hazel
 
@@ -102,6 +116,9 @@ A Hazel support script for running OCR on text from PDF documents
 Export selected images from Photos and renames them using timestamps
 
 - export_images.applescript
+
+## Safari
+
 
 ## SuperDuper!
 
