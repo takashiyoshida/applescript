@@ -4,7 +4,7 @@ use scripting additions
 tell application "Music"
 	if player state is playing or player state is paused then
 		if rating of current track ≥ 100 then
-			set rating of current track to 0
+			set rating of current track to 100
 		else
 			set rating of current track to (rating of current track) + 20
 		end if
