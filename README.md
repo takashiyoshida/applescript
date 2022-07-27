@@ -53,6 +53,24 @@ A support script for a Keyboard Maestro macro. It returns a number of selected i
 
 - km_count_finder_items.applescript
 
+A support script for a Keyboard Maestro macro. It returns the name of current project file.
+
+- set_garageband_project_name.applescript
+
+## Miscellaneous
+
+Shows current screen resolution
+
+- show_screen_resolution.applescript
+
+Sets system output volume to 50%
+
+- switch_to_normal_mode.applescript
+
+Sets system output volume to 20%
+
+- switch_to_quiet_mode.applescript
+
 ## Music
 
 Add one star to the current track
@@ -119,6 +137,15 @@ Export selected images from Photos and renames them using timestamps
 
 ## Safari
 
+Save Safari window position and restore them
+
+- save_safari_window_position.applescript
+
+## Spark
+
+- search_spark_mailbox.applescript
+
+> It looks like Spark already performs mailbox search when I enter Command + Option + F. I'm not using this script anymore.
 
 ## SuperDuper!
 
