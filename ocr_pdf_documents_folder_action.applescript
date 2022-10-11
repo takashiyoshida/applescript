@@ -2,7 +2,7 @@ property k_minutes : 60
 
 on adding folder items to this_folder after receiving added_items
 	try
-		tell application "PDFpenPro"
+		tell application "Nitro PDF Pro"
 			activate
 			repeat with curr_item in added_items
 				set openPdf to open curr_item

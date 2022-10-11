@@ -4,7 +4,7 @@ use scripting additions
 -- set theFile to choose file of type {"PDF"}
 set theFile to alias "Gabriela:Users:takashi:Downloads:ocr-documents:6745592652.pdf"
 
-tell application "PDFpenPro"
+tell application "Nitro PDF Pro"
 	open theFile as alias
 	tell document 1
 		ocr
