@@ -38,7 +38,7 @@ task :make_application_dirs do
   dir_names.push("Safari")
   dir_names.push("Spark")
   # dir_names.push("SuperDuper")
-  dir_names.push("Yojimbo")
+  # dir_names.push("Yojimbo")
   Rake::Task["make_subdirectory"].invoke($applications_dir, dir_names)
 
   dir_names = Array.new
@@ -56,27 +56,37 @@ end
 
 desc "Installs all scripts"
 task :install do
+  # Requires Carbon Copy Cloner
   Rake::Task["backup_audio_recordings"].invoke
-  # Rake::Task["backup_boot_drive"].invoke
+  # Requires Finder
   Rake::Task["close_all_finder_windows"].invoke
-  Rake::Task["drop_items_to_yojimbo_folder_action"].invoke
   Rake::Task["eject_all_disks"].invoke
-  Rake::Task["export_images_to_yojimbo"].invoke
-  Rake::Task["export_images"].invoke
   Rake::Task["km_count_finder_items"].invoke
   Rake::Task["make_comic_book_archive"].invoke
-  Rake::Task["make_web_archive_in_yojimbo"].invoke
+  Rake::Task["open_home_folders"].invoke
+  Rake::Task["show_screen_resolution"].invoke
+  # Requires GarageBand
+  Rake::Task["set_garageband_project_name"].invoke
+  # Requires Photos
+  Rake::Task["export_images"].invoke
+  # Requires Nitro PDF Pro (formerly PDFpen Pro)
   Rake::Task["ocr_pdf_documents_folder_action"].invoke
   Rake::Task["ocr_pdf_documents_hazel"].invoke
+  # Requires SystemEvents and Activity Monitor
   Rake::Task["open_activity_monitor"].invoke
-  Rake::Task["open_home_folders"].invoke
+  # Requires Google Chrome and Safari
   Rake::Task["open_in_google_chrome"].invoke
+  # Requires Safari
   Rake::Task["save_safari_window_positions"].invoke
+  # Requires Spark
   Rake::Task["search_spark_mailbox"].invoke
-  Rake::Task["set_garageband_project_name"].invoke
-  Rake::Task["show_screen_resolution"].invoke
   Rake::Task["switch_to_normal_mode"].invoke
   Rake::Task["switch_to_quiet_mode"].invoke
+  # Requires Yojimbo
+  # Rake::Task["backup_boot_drive"].invoke
+  # Rake::Task["drop_items_to_yojimbo_folder_action"].invoke
+  # Rake::Task["export_images_to_yojimbo"].invoke
+  # Rake::Task["make_web_archive_in_yojimbo"].invoke
 end
 
 # com.bombich.ccc6.task.open://A241E37B-B1BE-4261-B814-38EEADAF036A
