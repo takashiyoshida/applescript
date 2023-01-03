@@ -4,12 +4,12 @@ use scripting additions
 
 tell application "Carbon Copy Cloner"
 	activate
-
+	-- From Carbon Copy Cloner, right-click on the task and select Copy Link to Task
 	-- This opens Backup to Audio Recordings task
-	open location "com.bombich.ccc6.task.open://E85263F6-F856-4CFB-94AC-721F59F83064"
-
+	open location "com.bombich.ccc6.task.open://FFB36EF3-2F44-421E-982F-1A548D65E0BB"
+	
 	delay 2
-
+	
 	-- Trigger Run Now command
 	tell application "System Events"
 		tell process "Carbon Copy Cloner"
